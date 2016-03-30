@@ -14,7 +14,7 @@ class Testing {
     private String driver = "com.mysql.jdbc.Driver";
     private String userName = "root";
     private String password = "password123";
-    private static String sqlStatement = "SELECT DISTINCT city, firstname, sex, w.stationid, measured, winddirection, windspeedhighest - windspeedlowest as wind,\n" +
+    private String sqlStatement = "SELECT DISTINCT city, firstname, sex, w.stationid, measured, winddirection, windspeedhighest - windspeedlowest as wind,\n" +
             "temperaturemax - temperaturemin AS temperature, sunshine, rain, pressuremax-pressuremin as pressure,\n" +
             "clouds, humiditymax - humiditymin AS humidity\n" +
             "FROM weather w INNER JOIN person p ON w.measured = p.dateofbirth\n" +
@@ -29,7 +29,6 @@ class Testing {
 
 
     private Testing(){
-        System.out.println("Hello");
         con = createConnection();
     }
 
