@@ -30,14 +30,26 @@ INNER JOIN station s ON w.stationid = s.stationid
 WHERE monthname(p.dateofbirth)='may'
 AND year(p.dateofbirth) = 1995
 ORDER BY DAY(p.dateofbirth) LIMIT 2;";
-$result = $conn->query($sql);
+$result = mysqli_query($conn,$sql);
 
 if(mysqli_num_rows($result)) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        echo "<p>" . "city: " . $row["city"] . " Firstname: " . $row["firstname"]
-            . " Sex: " . $row["sex"] . " StationID: " . $row["stationid"]
-            . " Measured: " . $row["measured"] . " WindDirection: " . $row["winddirection"] . "</p>";
+// Print the column names as the headers of a table
+    echo "<table style='100%' align='center'><tr>";
+    for($i = 0; $i < mysqli_num_fields($result); $i++) {
+        $field_info = mysqli_fetch_field($result);
+        echo "<th>{$field_info->name}</th>";
     }
+
+// Print the data
+    while($row = mysqli_fetch_row($result)) {
+        echo "<tr>";
+        foreach($row as $_column) {
+            echo "<td>{$_column}</td>";
+        }
+        echo "</tr>";
+    }
+
+    echo "</table>";
 } else {
     echo "0 results";
 }
